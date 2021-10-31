@@ -6,6 +6,14 @@
       <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/hamcrest-core-1.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/junit-4.12.jar!/" />
       <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/commons-dbutils-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.ejb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.jms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.resource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.servlet.jsp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.servlet.jsp.jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/01bookstatic/book/src/main/webapp/WEB-INF/lib/javax.transaction.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -3,8 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>何先森的小店</title>
-		<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
-		<script type="text/javascript" src="../../static/script/jquery-1.7.2.js"></script>
+		<!--写base标签，永远固定相对路径跳转的结果-->
+		<base href="https://localhost:8080/He/01bookstatic/">
+		<link type="text/css" rel="stylesheet" href="static/css/style.css" >
+		<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
 		<script type="text/javascript">
 			// 页面加载完成之后
 			$(function () {
@@ -109,7 +111,7 @@
 								<span class="errorMsg"></span>
 							</div>
 							<div class="form">
-								<form action="http://localhost:8080">
+								<form action="regist.html">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名"
 										   autocomplete="off" tabindex="1" name="username" id="username" />
