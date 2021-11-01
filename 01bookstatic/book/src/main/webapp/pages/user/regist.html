@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>何先森的小店</title>
 		<!--写base标签，永远固定相对路径跳转的结果-->
-		<base href="https://localhost:8080/He/01bookstatic/">
+		<base href="http://localhost:8080/01bookstatic/">
 		<link type="text/css" rel="stylesheet" href="static/css/style.css" >
 		<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
 		<script type="text/javascript">
@@ -94,7 +94,7 @@
 	</head>
 	<body>
 		<div id="login_header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" >
 		</div>
 
 			<div class="login_banner">
@@ -111,30 +111,30 @@
 								<span class="errorMsg"></span>
 							</div>
 							<div class="form">
-								<form action="registServlet" method="post">
+								<form action="register" method="post">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名"
-										   autocomplete="off" tabindex="1" name="username" id="username" />
+										   autocomplete="off" tabindex="1" name="username" id="username" value="admin123" />
 									<br />
 									<br />
 									<label>用户密码：</label>
 									<input class="itxt" type="password" placeholder="请输入密码"
-										   autocomplete="off" tabindex="1" name="password" id="password" />
+										   autocomplete="off" tabindex="1" name="password" id="password" value="admin123"/>
 									<br />
 									<br />
 									<label>确认密码：</label>
 									<input class="itxt" type="password" placeholder="确认密码"
-										   autocomplete="off" tabindex="1" name="repwd" id="repwd" />
+										   autocomplete="off" tabindex="1" name="repwd" id="repwd" value="admin123"/>
 									<br />
 									<br />
 									<label>电子邮件：</label>
 									<input class="itxt" type="text" placeholder="请输入邮箱地址"
-										   autocomplete="off" tabindex="1" name="email" id="email" />
+										   autocomplete="off" tabindex="1" name="email" id="email" value="765866515@qq.com"/>
 									<br />
 									<br />
 									<label>验证码：</label>
-									<input class="itxt" type="text" style="width: 150px;" id="code"/>
-									<img alt="" src="../../static/img/code.bmp" style="float: right; margin-right: 40px">
+									<input class="itxt" name="code" type="text" style="width: 150px;" id="code"  />
+									<img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
 									<br />
 									<br />
 									<input type="submit" value="注册" id="sub_btn" />
