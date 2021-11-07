@@ -1,9 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>编辑图书</title>
-<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<%--		静态包含base标签，css样式，jQuery文件--%>
+	<%@ include file="/pages/common/head.jsp"%>
+	<%--<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >--%>
 <style type="text/css">
 	h1 {
 		text-align: center;
@@ -21,17 +24,14 @@
 </head>
 <body>
 		<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">编辑图书</span>
-			<div>
-				<a href="book_manager.html">图书管理</a>
-				<a href="order_manager.html">订单管理</a>
-				<a href="../../index.html">返回商城</a>
-			</div>
+			<%--		静态包含manage页面--%>
+			<%@ include file="/pages/common/manager_menu.jsp"%>
 		</div>
 		
 		<div id="main">
-			<form action="book_manager.html">
+			<form action="book_manager.jsp">
 				<table>
 					<tr>
 						<td>名称</td>
@@ -54,11 +54,8 @@
 			
 	
 		</div>
-		
-		<div id="bottom">
-			<span>
-				尚硅谷书城.Copyright &copy;2015
-			</span>
-		</div>
+
+		<%--	静态包含页脚--%>
+		<%@ include file="/pages/common/foot.jsp"%>
 </body>
 </html>

@@ -1,12 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>何先森的小店</title>
-		<!--写base标签，永远固定相对路径跳转的结果-->
-		<base href="http://localhost:8080/01bookstatic/">
-		<link type="text/css" rel="stylesheet" href="static/css/style.css" >
-		<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
+
+<%--		静态包含base标签，css样式，jQuery文件--%>
+		<%@ include file="/pages/common/head.jsp"%>
+
+<%--		<!--写base标签，永远固定相对路径跳转的结果-->--%>
+<%--		<base href="http://localhost:8080/01bookstatic/">--%>
+<%--		<link type="text/css" rel="stylesheet" href="static/css/style.css" >--%>
+<%--		<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>--%>
 		<script type="text/javascript">
 			// 页面加载完成之后
 			$(function () {
@@ -108,28 +113,34 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>注册尚硅谷会员</h1>
-								<span class="errorMsg"></span>
+								<span class="errorMsg">
+<%--									<%= request.getAttribute("msg")==null?"":request.getAttribute("msg")%>--%>
+									${requestScope.msg}
+								</span>
 							</div>
 							<div class="form">
-								<form action="register" method="post">
+								<form action="user" method="post">
+									<input type="hidden" name="action" value="regist">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名"
-										   autocomplete="off" tabindex="1" name="username" id="username" value="admin123" />
+										   autocomplete="off" tabindex="1" name="username" id="username"
+										   value="${requestScope.username}" />
 									<br />
 									<br />
 									<label>用户密码：</label>
 									<input class="itxt" type="password" placeholder="请输入密码"
-										   autocomplete="off" tabindex="1" name="password" id="password" value="admin123"/>
+										   autocomplete="off" tabindex="1" name="password" id="password"/>
 									<br />
 									<br />
 									<label>确认密码：</label>
 									<input class="itxt" type="password" placeholder="确认密码"
-										   autocomplete="off" tabindex="1" name="repwd" id="repwd" value="admin123"/>
+										   autocomplete="off" tabindex="1" name="repwd" id="repwd" />
 									<br />
 									<br />
 									<label>电子邮件：</label>
 									<input class="itxt" type="text" placeholder="请输入邮箱地址"
-										   autocomplete="off" tabindex="1" name="email" id="email" value="765866515@qq.com"/>
+										   autocomplete="off" tabindex="1" name="email" id="email"
+										   value="${requestScope.email}"/>
 									<br />
 									<br />
 									<label>验证码：</label>
@@ -145,10 +156,12 @@
 					</div>
 				</div>
 			</div>
-		<div id="bottom">
-			<span>
-				何先森.Copyright &copy;2021
-			</span>
-		</div>
+		<%--	静态包含页脚--%>
+		<%@ include file="/pages/common/foot.jsp"%>
+<%--		<div id="bottom">--%>
+<%--			<span>--%>
+<%--				何先森.Copyright &copy;2021--%>
+<%--			</span>--%>
+<%--		</div>--%>
 	</body>
 </html>

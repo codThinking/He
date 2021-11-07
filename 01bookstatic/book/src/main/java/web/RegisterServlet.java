@@ -35,16 +35,23 @@ public class RegisterServlet extends HttpServlet {
             if(userService.existsUsername(username)){
                 //不可用
                 System.out.println("用户名输入错误");
-                req.getRequestDispatcher("/pages/user/regist.html").forward(req,resp);
+                req.setAttribute("msg","用户名错误");
+                req.setAttribute("username",username);
+                req.setAttribute("email",email);
+                req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
             }else {
                 //可用 调用service保存到数据库
                 userService.registerUser(new User(null,username,password,email));
-                req.getRequestDispatcher("/pages/user/regist_success.html").forward(req,resp);
+                req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req,resp);
             }
         }else{
             //跳回注册页面
+            req.setAttribute("msg","验证码输入错误");
+            req.setAttribute("username",username);
+            req.setAttribute("email",email);
+
             System.out.println("验证码输入错误！");
-            req.getRequestDispatcher("/pages/user/regist.html").forward(req,resp);
+            req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
         }
 
     }
