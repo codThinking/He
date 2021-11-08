@@ -2,6 +2,7 @@ package dao.impl;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.JdbcUtils;
 
@@ -53,8 +54,10 @@ public abstract class BaseDao {
     public <T> List<T> queryForList(Class<T> type, String sql, Object ... args){
         Connection con = JdbcUtils.getConnection();
         try {
-            return (List<T>) queryRunner.query(con,sql,new BeanHandler<T>(type),args);
+//            return (List<T>) queryRunner.query(con,sql,new BeanHandler<T>(type),args);
+            return queryRunner.query(con, sql, new BeanListHandler<T>(type), args);
         } catch (SQLException e) {
+
             e.printStackTrace();
         }finally {
             JdbcUtils.close(con);
