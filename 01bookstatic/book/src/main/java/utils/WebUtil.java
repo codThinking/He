@@ -26,4 +26,19 @@ public class WebUtil {
         }
         return bean;
     }
+
+    /**
+     * 将字符串转换成为Int类型的数据
+     * @param strInt
+     * @param defaultValue
+     * @return
+     */
+    public static int parseInt(String strInt,int defaultValue){
+        try{
+            return Integer.parseInt(strInt);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return defaultValue;
+    }
 }

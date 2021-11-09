@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>后台管理</title>
 	<%-- 静态包含 base标签、css样式、jQuery文件 --%>
-<%--	<%@ include file="/pages/common/head.jsp"%>--%>
+	<%@ include file="/pages/common/head.jsp"%>
 <%--	<link type="text/css" rel="stylesheet" href="../../static/css/style.css" --%>
 <style type="text/css">
 	h1 {

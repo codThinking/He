@@ -26,12 +26,33 @@ public class BookServlet extends BaseServlet{
     }
 
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+//        1、获取请求对象，封装成book对象
+        Book book = WebUtil.copyParamToBean(req.getParameterMap(), new Book());
+//        2、调用BOOkService修改图书
+        bookService.updateBook(book);
+//        3、重定向图书管理页面
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+    }
+
+
+    protected void getBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//         1、获取请求参数
+        String id = req.getParameter("id");
+//        2、调用service查询数据
+        Book book = bookService.queryById(WebUtil.parseInt(id,0));
+//        3、保存图书到Request域中
+        req.setAttribute("book",book);
+//        4、请求转发到pages/manager/book_edit.jsp
+        req.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(req,resp);
     }
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        1、获取请求参数id
         String id = req.getParameter("id");
+//        2、调用BookService删除Book
+        bookService.deleteBook(WebUtil.parseInt(id,0));
+//        3、重定向图书列表管理页面
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
 
     }
 
