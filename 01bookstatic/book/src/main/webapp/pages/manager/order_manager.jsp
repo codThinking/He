@@ -11,7 +11,7 @@
 <body>
 	
 	<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">订单管理系统</span>
 <%--		静态包含manage页面--%>
 		<%@ include file="/pages/common/manager_menu.jsp"%>

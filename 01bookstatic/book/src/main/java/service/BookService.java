@@ -1,6 +1,7 @@
 package service;
 
 import pojo.Book;
+import pojo.Page;
 
 import java.util.List;
 
@@ -37,4 +38,11 @@ public interface BookService {
      */
     public List<Book> queryBooks();
 
+    /**
+     * 分页
+     * @param parseInt
+     * @param parseInt1
+     * @return
+     */
+    public Page page(int parseInt, int parseInt1);
 }

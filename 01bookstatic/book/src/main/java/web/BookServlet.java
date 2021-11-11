@@ -1,6 +1,7 @@
 package web;
 
 import pojo.Book;
+import pojo.Page;
 import service.BookService;
 import service.impl.BookServiceImpl;
 import utils.WebUtil;
@@ -22,7 +23,7 @@ public class BookServlet extends BaseServlet{
 //        2、调用BookService保存Book
         bookService.addBook(book);
 //        3、跳转图书列表页面（重定向）
-        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=page");
     }
 
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +32,7 @@ public class BookServlet extends BaseServlet{
 //        2、调用BOOkService修改图书
         bookService.updateBook(book);
 //        3、重定向图书管理页面
-        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=page");
     }
 
 
@@ -52,7 +53,7 @@ public class BookServlet extends BaseServlet{
 //        2、调用BookService删除Book
         bookService.deleteBook(WebUtil.parseInt(id,0));
 //        3、重定向图书列表管理页面
-        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath()+"/manager/bookServlet?action=page");
 
     }
 
@@ -63,6 +64,18 @@ public class BookServlet extends BaseServlet{
 //        2、保存到Request域中
         req.setAttribute("books",bookList);
 //        3、请求转发到pages/manager/manager.jsp
+        req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
+    }
+
+    protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//         1、获取请求参数
+        String pageNo = req.getParameter("pageNo");
+        String pageSize = req.getParameter("pageSize");
+//        2、调用service查询数据
+        Page page = bookService.page(WebUtil.parseInt(pageNo,1),WebUtil.parseInt(pageSize,Page.PAGE_SIZE));
+//        3、保存图书到Request域中
+        req.setAttribute("page",page);
+//        4、请求转发到pages/manager/book_edit.jsp
         req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
     }
 }

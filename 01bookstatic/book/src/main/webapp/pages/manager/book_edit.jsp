@@ -6,7 +6,7 @@
 <title>编辑图书</title>
 	<%--		静态包含base标签，css样式，jQuery文件--%>
 	<%@ include file="/pages/common/head.jsp"%>
-	<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<link type="text/css" rel="stylesheet" href="static/css/style.css" >
 <style type="text/css">
 	h1 {
 		text-align: center;
@@ -24,7 +24,7 @@
 </head>
 <body>
 		<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">编辑图书</span>
 			<%--		静态包含manage页面--%>
 			<%@ include file="/pages/common/manager_menu.jsp"%>

@@ -51,7 +51,23 @@ public class Page<T> {
         this.items = items;
     }
 
-    public Page(Integer pageTotal, Integer pageSize, Integer pageTotalCount, List<T> items) {
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+//        数据有效性检测
+        if(pageNo <1){
+            pageNo=1;
+        }
+        if(pageNo>pageTotal){
+            pageNo=pageTotal;
+        }
+        this.pageNo = pageNo;
+    }
+
+    public Page(Integer pageNo, Integer pageTotal, Integer pageSize, Integer pageTotalCount, List<T> items) {
+        this.pageNo = pageNo;
         this.pageTotal = pageTotal;
         this.pageSize = pageSize;
         this.pageTotalCount = pageTotalCount;
