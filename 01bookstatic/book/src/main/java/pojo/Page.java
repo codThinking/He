@@ -19,6 +19,17 @@ public class Page<T> {
 //    当前页数据
     private List<T> items;
 
+//    分页条的请求地址
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Integer getPageTotal() {
         return pageTotal;
     }
@@ -75,5 +86,17 @@ public class Page<T> {
     }
 
     public Page() {
+    }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "pageNo=" + pageNo +
+                ", pageTotal=" + pageTotal +
+                ", pageSize=" + pageSize +
+                ", pageTotalCount=" + pageTotalCount +
+                ", items=" + items +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

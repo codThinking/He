@@ -1,6 +1,7 @@
 package dao;
 
 import pojo.Book;
+import pojo.Page;
 
 import java.util.List;
 
@@ -52,4 +53,22 @@ public interface BookDao {
      * @return
      */
     public List<Book> queryForItems(int begin, int pageSize);
+
+    /**
+     * 依据最大最小价格查询总记录数
+     * @param min
+     * @param max
+     * @return
+     */
+    Integer queryForPageTotalCountByPrice(int min, int max);
+
+    /**
+     * 依据最大最小价格查询当前页数据
+     * @param begin
+     * @param pageSize
+     * @param min
+     * @param max
+     * @return
+     */
+    List<Book> queryForPageItemsByPrice(int begin, int pageSize, int min, int max);
 }

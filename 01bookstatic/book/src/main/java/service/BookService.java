@@ -45,4 +45,14 @@ public interface BookService {
      * @return
      */
     public Page page(int parseInt, int parseInt1);
+
+    /**
+     * 依据价格分页
+     * @param pageNo
+     * @param pageSize
+     * @param min
+     * @param max
+     * @return
+     */
+    Page pageByPrice(int pageNo, int pageSize, int min, int max);
 }
