@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
+
 public class UserServlet extends BaseServlet {
 
 
@@ -41,6 +43,8 @@ public class UserServlet extends BaseServlet {
 
         }else {
 //            登录成功
+//            保存用户登录信息到session
+            req.getSession().setAttribute("user",loginUser);
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
     }
@@ -54,48 +58,52 @@ public class UserServlet extends BaseServlet {
      */
     protected void regist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        1、获取请求参数
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String email = req.getParameter("email");
-        String code = req.getParameter("code");
-
-
-
-
-
+//        String username = req.getParameter("username");
+//        String password = req.getParameter("password");
+//        String email = req.getParameter("email");
+//        String code = req.getParameter("code");
         User user = WebUtil.copyParamToBean(req.getParameterMap(),new User());
-
-
-
 //        System.out.println(code);
 //        2、验证验证码是否正确
-        if("abcde".equalsIgnoreCase(code)){
+//            1、获取Session中验证码
+        String token = (String)  req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+//            2、删除Session中验证码
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+        String code = req.getParameter("code");
+
+        if(token!=null && token.equalsIgnoreCase(code)){
             //正确
             //  3、检查用户名是否可以用?
-            if(userService.existsUsername(username)){
+            if(userService.existsUsername(user.getUsername())){
                 //不可用
                 System.out.println("用户名输入错误");
                 req.setAttribute("msg","用户名错误");
-                req.setAttribute("username",username);
-                req.setAttribute("email",email);
+                req.setAttribute("username",user.getUsername());
+                req.setAttribute("email",user.getEmail());
                 req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
             }else {
                 //可用 调用service保存到数据库
-                userService.registerUser(new User(null,username,password,email));
+                userService.registerUser(user);
                 req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req,resp);
             }
         }else{
             //跳回注册页面
             req.setAttribute("msg","验证码输入错误");
-            req.setAttribute("username",username);
-            req.setAttribute("email",email);
+            req.setAttribute("username",user.getUsername());
+            req.setAttribute("email",user.getEmail());
 
             System.out.println("验证码输入错误！");
             req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
         }
     }
 
+    protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        1、删除Session中用户登录信息
+        req.getSession().invalidate();
+//        2、重定向到首页
+        req.getRequestDispatcher("").forward(req,resp);
 
+    }
 
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
