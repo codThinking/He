@@ -7,11 +7,19 @@
 <title>书城首页</title>
 	<%--		静态包含base标签，css样式，jQuery文件--%>
 	<%@ include file="/pages/common/head.jsp"%>
+ <script type="text/javascript">
+	 $(function (){
+		// 加入购物车绑定单击事件
+		 $("button.addToCart").click(function (){
+			 var bookId = $(this).attr("bookId");
+			 location.href = "http://localhost:8080/01bookstatic/cartServlet?action=addItem&id=" + bookId;
+		 })
 
+	 })
+ </script>
 <%--<link type="text/css" rel="stylesheet" href="static/css/style.css" >--%>
 </head>
 <body>
-	
 	<div id="header">
 			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">网上书城</span>
@@ -43,12 +51,15 @@
 						<input type="submit" value="查询" />
 				</form>
 			</div>
-			<div style="text-align: center">
-				<span>您的购物车中有3件商品</span>
-				<div>
-					您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
+			<c:if test="${not empty sessionScope.cart.items}">
+				<div style="text-align: center">
+					<span>${sessionScope.cart.totalCount}</span>
+					<div>
+						您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
+					</div>
 				</div>
-			</div>
+			</c:if>
+
 			<c:forEach items="${requestScope.page.items}" var="book">
 				<div class="b_list">
 				<div class="img_div">
@@ -76,14 +87,14 @@
 						<span class="sp2">${book.stock}</span>
 					</div>
 					<div class="book_add">
-						<button>加入购物车</button>
+						<button class="addToCart" bookId="${book.id}">加入购物车</button>
 					</div>
 				</div>
 			</div>
 			</c:forEach>
 		</div>
 
-        <%@include file="/pages/common/page_nav.jsp"%>>
+        <%@include file="/pages/common/page_nav.jsp"%>
 	
 	</div>
 <%--	静态包含页脚--%>
