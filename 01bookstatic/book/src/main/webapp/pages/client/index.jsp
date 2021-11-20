@@ -53,7 +53,7 @@
 			</div>
 			<c:if test="${not empty sessionScope.cart.items}">
 				<div style="text-align: center">
-					<span>${sessionScope.cart.totalCount}</span>
+					<span>您的购物车共有${sessionScope.cart.totalCount}件商品</span>
 					<div>
 						您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
 					</div>

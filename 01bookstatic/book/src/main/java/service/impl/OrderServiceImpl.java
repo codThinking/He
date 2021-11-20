@@ -1,13 +1,12 @@
 package service.impl;
 
+import dao.BookDao;
 import dao.OrderDao;
 import dao.OrderItemDao;
+import dao.impl.BookDaoImpl;
 import dao.impl.OrderDaoImpl;
 import dao.impl.OrderItemDaoImpl;
-import pojo.Cart;
-import pojo.CartItem;
-import pojo.Order;
-import pojo.OrderItem;
+import pojo.*;
 import service.OrderService;
 
 import java.util.Date;
@@ -17,6 +16,7 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao = new OrderDaoImpl();
     private OrderItemDao orderItemDao = new OrderItemDaoImpl();
+    private BookDao bookDao = new BookDaoImpl();
     @Override
     public String createOrder(Cart cart, Integer userid) {
 
@@ -29,10 +29,16 @@ public class OrderServiceImpl implements OrderService {
             CartItem cartItem = entry.getValue();
             OrderItem orderItem = new OrderItem(null,cartItem.getName(),cartItem.getCount(),cartItem.getPrice(),cartItem.getTotalPrice(),orderId);
             orderItemDao.saveOrderItem(orderItem);
+
+            //更新库存和销量
+            Book book = bookDao.queryBookById(cartItem.getId());
+            book.setSales(book.getSales()+cartItem.getCount());
+            book.setStock(book.getStock()-cartItem.getCount());
+            bookDao.updateBook(book);
         }
+        //清空购物车
         cart.clear();
         return orderId;
-
     }
 
     @Override
