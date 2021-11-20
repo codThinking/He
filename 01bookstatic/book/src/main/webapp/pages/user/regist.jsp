@@ -20,9 +20,7 @@
 					this.src = "${basePath}kaptcha.jpg?d="+new Date();
 				})
 
-
-
-				// 给注册绑定单击事件
+			// 给注册绑定单击事件
 				$("#sub_btn").click(function () {
 					// 验证用户名：必须由字母，数字下划线组成，并且长度为5到12位
 					//1 获取用户名输入框里的内容

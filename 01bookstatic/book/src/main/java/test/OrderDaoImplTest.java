@@ -17,7 +17,9 @@ public class OrderDaoImplTest {
     @Test
     public void saveOrder() {
 //        orderDao.saveOrder(new Order("12134",new Date(),new BigDecimal(1),0,1));
-        orderDao.saveOrder(new Order("001",new Date(),new BigDecimal(1),0,1));
+        orderDao.saveOrder(new Order("004",new Date(),new BigDecimal(1),0,3));
+        orderDao.saveOrder(new Order("005",new Date(),new BigDecimal(1),0,3));
+        orderDao.saveOrder(new Order("006",new Date(),new BigDecimal(1),0,3));
     }
 
     @Test
@@ -30,13 +32,15 @@ public class OrderDaoImplTest {
 
     @Test
     public void changeOrderStatus() {
-        orderDao.changeOrderStatus("12134",2);
-        System.out.println();
+        orderDao.changeOrderStatus("001",1);
+//        System.out.println();
     }
 
     @Test
     public void queryOrderByUserId() {
-        Order order = orderDao.queryOrderByUserId(1);
-        System.out.println(order);
+        List<Order> orders = orderDao.queryOrderByUserId(3);
+        for (Order order : orders) {
+            System.out.println(order);
+        }
     }
 }

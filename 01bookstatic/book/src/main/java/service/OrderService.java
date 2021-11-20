@@ -2,6 +2,7 @@ package service;
 
 import pojo.Cart;
 import pojo.Order;
+import pojo.OrderItem;
 
 import java.util.List;
 
@@ -27,10 +28,10 @@ public interface OrderService {
 
     /**
      *查看订单详情
-     * @param OrderId
+     * @param orderId
      * @return
      */
-    Order showOrderDetails(String OrderId);
+    List<OrderItem> showOrderDetails(String orderId);
 
     /**
      *查看我的订单
@@ -41,7 +42,7 @@ public interface OrderService {
 
     /**
      *签收订单确认收货
-     * @param OrderId
+     * @param orderId
      */
-    void receiveOrder(String OrderId);
+    void receiveOrder(String orderId);
 }

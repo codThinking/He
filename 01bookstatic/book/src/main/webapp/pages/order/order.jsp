@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -22,39 +23,29 @@
 		<%--静态包含登录成功之后的界面--%>
 		<%@ include file="/pages/common/login_success_menu.jsp"%>
 	</div>
-	
+
 	<div id="main">
-		
+
 		<table>
 			<tr>
 				<td>日期</td>
 				<td>金额</td>
 				<td>状态</td>
 				<td>详情</td>
-			</tr>		
+			</tr>
+<%--			<c:forEach items="${requestScope.}">--%>
+
+<%--			</c:forEach>--%>
 			<tr>
 				<td>2015.04.23</td>
 				<td>90.00</td>
 				<td>未发货</td>
 				<td><a href="#">查看详情</a></td>
-			</tr>	
-			
-			<tr>
-				<td>2015.04.20</td>
-				<td>20.00</td>
-				<td>已发货</td>
-				<td><a href="#">查看详情</a></td>
-			</tr>	
-			
-			<tr>
-				<td>2014.01.23</td>
-				<td>190.00</td>
-				<td>已完成</td>
-				<td><a href="#">查看详情</a></td>
-			</tr>		
+			</tr>
+
 		</table>
-		
-	
+
+
 	</div>
 
 	<%--	静态包含页脚--%>
