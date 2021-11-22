@@ -93,10 +93,20 @@ public class CartServlet extends BaseServlet{
         int id= WebUtil.parseInt(req.getParameter("id"),0);
         int count = WebUtil.parseInt(req.getParameter("count"),1);
         Cart cart = (Cart) req.getSession().getAttribute("cart");
-        if(cart!=null){
+//书的库存
+        int bookStack = bookService.queryById(id).getStock();
+        if (bookStack >= count && cart!=null){
             cart.updateCount(id,count);
             resp.sendRedirect(req.getHeader("Referer"));
+        }else {
+//            req.getSession().setAttribute("msg", new String("超出库存数量异常"));
+//            req.setAttribute("outOfStack","超出库存数量异常");
+//            //因为使用的是重定向
+//            req.setAttribute("count","1");
+//            无法使用重定向将以上数据返回前端
+            resp.sendRedirect(req.getHeader("Referer"));
         }
+
 
     }
 }

@@ -12,6 +12,10 @@
 <%--<link type="text/css" rel="stylesheet" href="static/css/style.css" >--%>
 	<script type="text/javascript">
 		$(function (){
+<%--			<c:if test="${not empty sessionScope.msg}">--%>
+<%--			alert(${sessionScope.msg})--%>
+<%--			</c:if>--%>
+
 			// 给 【删除】绑定单击事件
 			$("a.deleteItem").click(function (){
 				return confirm("你确定要删除【"+$(this).parent().parent().find("td:first").text()+"】吗？")
@@ -35,17 +39,28 @@
 					this.value = this.defaultValue;
 				}
 			});
+
 		})
 	</script>
 </head>
 <body>
-	
 	<div id="header">
 			<img class="logo_img" alt="" src="static/img/logo.gif" >
 			<span class="wel_word">购物车</span>
 		<%--静态包含登录成功之后的界面--%>
 		<%@ include file="/pages/common/login_success_menu.jsp"%>
 	</div>
+
+
+	<c:if test="${not empty requestScope.outOfStack}">
+		<div class="msg_cont">
+			<b></b>
+			<span class="errorMsg">
+					${requestScope.outOfStack}
+			</span>
+		</div>
+	</c:if>
+
 
 	<div id="main">
 

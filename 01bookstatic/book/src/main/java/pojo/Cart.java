@@ -54,7 +54,7 @@ public class Cart {
      */
     public void updateCount(Integer id ,Integer count){
         CartItem item = items.get(id);
-
+         //添加库存校验
         if (item != null){
             item.setCount(count);
         }
