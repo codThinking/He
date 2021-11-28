@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -32,20 +33,32 @@
 				<td>金额</td>
 				<td>状态</td>
 				<td>详情</td>
+				<td>操作</td>
 			</tr>
-<%--			<c:forEach items="${requestScope.}">--%>
+			<c:forEach items="${requestScope.orders}" var="order">
+				<tr>
+					<td>
+						<fmt:formatDate value="${order.createTime}" pattern='yyyy-MM-dd'/>
+					</td>
+					<td>${order.price}</td>
+					<td>
+						<c:if test="${order.status == 0 }">
+							未发货
+						</c:if>
 
-<%--			</c:forEach>--%>
-			<tr>
-				<td>2015.04.23</td>
-				<td>90.00</td>
-				<td>未发货</td>
-				<td><a href="#">查看详情</a></td>
-			</tr>
+						<c:if test="${order.status == 1 }">
+							已发货
+						</c:if>
 
+						<c:if test="${order.status == 2 }">
+							已收货
+						</c:if>
+					</td>
+					<td><a href="manager/orderServlet?action=orderDetails&orderId=${order.orderId}">查看详情</a></td>
+					<td><a href="manager/orderServlet?action=receiveOrder&orderId=${order.orderId}">收货</a></td>
+				</tr>
+			</c:forEach>
 		</table>
-
-
 	</div>
 
 	<%--	静态包含页脚--%>

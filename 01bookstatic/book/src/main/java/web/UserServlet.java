@@ -1,5 +1,6 @@
 package web;
 
+import com.google.gson.Gson;
 import org.apache.commons.beanutils.BeanUtils;
 import pojo.User;
 import service.UserService;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -19,6 +22,27 @@ public class UserServlet extends BaseServlet {
 
 
     private UserService userService = new UserServiceImpl();
+
+    /**
+     * 判断用户名是否重复
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void ajaxExistsUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取请求参数
+        String username = req.getParameter("username");
+        //调用userSerVice.existUsername
+        boolean existsUsername = userService.existsUsername(username);
+        //把返回结果封装成map
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("existsUsername",existsUsername);
+        //
+        Gson gson = new Gson();
+        String json = gson.toJson(resultMap);
+        resp.getWriter().write(json);
+    }
 
     /**
      * 登录servlet
@@ -92,7 +116,7 @@ public class UserServlet extends BaseServlet {
             req.setAttribute("username",user.getUsername());
             req.setAttribute("email",user.getEmail());
 
-            System.out.println("验证码输入错误！");
+//            System.out.println("验证码输入错误！");
             req.getRequestDispatcher("/pages/user/regist.jsp").forward(req,resp);
         }
     }

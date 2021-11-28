@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,12 @@
 		<%--		静态包含manage页面--%>
 		<%@ include file="/pages/common/manager_menu.jsp"%>
 	</div>
-
+	<c:if test="${not empty requestScope.msg}">
+		<div class="msg_cont">
+			<b></b>
+			<span class="errorMsg">${requestScope.msg}</span>
+		</div>
+	</c:if>
 	<div id="main">
 		<h1>欢迎管理员进入后台管理系统</h1>
 	</div>

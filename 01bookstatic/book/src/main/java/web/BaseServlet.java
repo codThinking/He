@@ -26,6 +26,8 @@ public abstract class BaseServlet extends HttpServlet {
         //解决POST请求中文乱码问题
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        //解决响应中文乱码问题
+        resp.setContentType("text/html;charset=UTF-8");
 //       if("login".equals(action)){
 //           login(req,resp);
 //       }else if("regist".equals(action)){

@@ -61,7 +61,9 @@ public class Book {
     }
 
     public void setSales(Integer sales) {
-        this.sales = sales;
+        if (sales >=0 ){
+            this.sales = sales;
+        }
     }
 
     public Integer getStock() {
@@ -69,7 +71,9 @@ public class Book {
     }
 
     public void setStock(Integer stock) {
-        this.stock = stock;
+        if (stock >= 0){
+            this.stock = stock;
+        }
     }
 
     public String getImgPath() {

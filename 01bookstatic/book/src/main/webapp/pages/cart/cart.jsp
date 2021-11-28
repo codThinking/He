@@ -12,10 +12,6 @@
 <%--<link type="text/css" rel="stylesheet" href="static/css/style.css" >--%>
 	<script type="text/javascript">
 		$(function (){
-<%--			<c:if test="${not empty sessionScope.msg}">--%>
-<%--			alert(${sessionScope.msg})--%>
-<%--			</c:if>--%>
-
 			// 给 【删除】绑定单击事件
 			$("a.deleteItem").click(function (){
 				return confirm("你确定要删除【"+$(this).parent().parent().find("td:first").text()+"】吗？")
@@ -32,8 +28,10 @@
 				// 获取商品数量
 				var count = this.value;
 				if ( confirm("你确定要将【" + name + "】商品修改数量为：" + count + " 吗?") ) {
-					//发起请求。给服务器保存修改
-					location.href = "http://localhost:8080/01bookstatic/cartServlet?action=updateCount&count="+count+"&id="+id;
+					//发起请求给服务器保存修改
+					$.getJSON("http://localhost:8080/01bookstatic/cartServlet","action=ajaxUpdateCount&id="+id+"&count="+count,function (data){
+						$("#errorMsg").text(data.msg);
+					});
 				} else {
 					// defaultValue属性是表单项Dom对象的属性。它表示默认的value属性值。
 					this.value = this.defaultValue;
@@ -52,18 +50,9 @@
 	</div>
 
 
-	<c:if test="${not empty requestScope.outOfStack}">
-		<div class="msg_cont">
-			<b></b>
-			<span class="errorMsg">
-					${requestScope.outOfStack}
-			</span>
-		</div>
-	</c:if>
-
-
 	<div id="main">
-
+		<b></b>
+		<span class="errorMsg" style="text-align: center"  id="errorMsg"></span>
 		<table>
 			<tr>
 				<td>商品名称</td>

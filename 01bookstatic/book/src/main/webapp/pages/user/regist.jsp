@@ -15,6 +15,33 @@
 		<script type="text/javascript">
 			// 页面加载完成之后
 			$(function () {
+
+				// //确定用户名是否重复
+				// $("#username").blur(function (){
+				// 	//1、获取用户名
+				// 	var username = this.value();
+				// 	$.getJSON("http://localhost:8080/01bookstatic/userServlet","action=ajaxExistsUsername&username="+username,function(data){
+				// 		if (data.existsUsername){
+				// 			$("span.errorMsg").text("用户名已存在");
+				// 		} else {
+				// 			$("span.errorMsg").text("用户名可用");
+				// 		}
+				// 	})
+				// })
+				$("#username").blur(function () {
+					//1 获取用户名
+					var username = this.value;
+					$.getJSON("http://localhost:8080/01bookstatic/user","action=ajaxExistsUsername&username=" + username,function(data){
+						if(data.existsUsername){
+							$("span.errorMsg").text("用户名已存在！");
+						} else {
+							$("span.errorMsg").text("用户名可用！");
+						}
+					});
+				});
+
+
+
 				//给验证码图片绑定单击事件
 				$("#code_img").click(function (){
 					this.src = "${basePath}kaptcha.jpg?d="+new Date();
@@ -86,9 +113,6 @@
 						return false;
 					}
 					$("span.errorMsg").text();
-
-
-
 				});
 
 			});

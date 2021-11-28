@@ -12,7 +12,12 @@
 		// 加入购物车绑定单击事件
 		 $("button.addToCart").click(function (){
 			 var bookId = $(this).attr("bookId");
-			 location.href = "http://localhost:8080/01bookstatic/cartServlet?action=addItem&id=" + bookId;
+			 // location.href = "http://localhost:8080/01bookstatic/cartServlet?action=addItem&id=" + bookId;
+
+			 $.getJSON("http://localhost:8080/01bookstatic/cartServlet","action=ajaxAddItem&id="+bookId,function (data){
+				 $("#cartItemTotalCount").text("您的购物车中有" + data.totalNumber + " 件商品");
+				 $("#cartLastName").text("您刚刚将"+data.lastName+"加入到了购物车中!");
+			 })
 		 })
 
 	 })
@@ -32,7 +37,7 @@
 <%--			如果已经登录显示用户信息--%>
 				<c:if test="${not empty sessionScope.user}">
 					<span>欢迎<span class="um_span">${sessionScope.user.username}</span>光临尚硅谷书城</span>
-					<a href="pages/order/order.jsp">我的订单</a>
+					<a href="manager/orderServlet?action=showMyOrder&userid=${sessionScope.user.id}">我的订单</a>
 					<a href="user?action=logout">注销</a>&nbsp;&nbsp;
 				</c:if>
 
@@ -40,6 +45,13 @@
 				<a href="pages/manager/manager.jsp">后台管理</a>
 			</div>
 	</div>
+	<c:if test="${not empty requestScope.msg}">
+		<div class="msg_cont">
+			<b></b>
+			<span class="errorMsg">${requestScope.msg}</span>
+		</div>
+	</c:if>
+
 	<div id="main">
 		<div id="book">
 			<div class="book_cond">
@@ -51,14 +63,33 @@
 						<input type="submit" value="查询" />
 				</form>
 			</div>
-			<c:if test="${not empty sessionScope.cart.items}">
-				<div style="text-align: center">
-					<span>您的购物车共有${sessionScope.cart.totalCount}件商品</span>
-					<div>
-						您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
+
+			<div style="text-align: center">
+				<c:if test="${empty sessionScope.cart.items}">
+					<div style="text-align: center">
+						<span id="cartItemTotalCount"></span>
+						<div>
+							<span id="cartLastName" style="color: red">当前购物车为空</span>
+						</div>
 					</div>
-				</div>
-			</c:if>
+				</c:if>
+
+				<c:if test="${not empty sessionScope.cart.items}">
+<%--					<div style="text-align: center">--%>
+<%--						<span id="cartItemTotalCount">您的购物车共有${sessionScope.cart.totalCount}件商品</span>--%>
+<%--						<div>--%>
+<%--							您刚刚将<span id="cartLastName" style="color: red">${sessionScope.lastName}</span>加入到了购物车中--%>
+<%--						</div>--%>
+<%--					</div>--%>
+					<div style="text-align: center">
+						<span id="cartItemTotalCount"></span>
+						<div>
+							<span id="cartLastName" style="color: red"></span>
+						</div>
+					</div>
+				</c:if>
+			</div>
+
 
 			<c:forEach items="${requestScope.page.items}" var="book">
 				<div class="b_list">

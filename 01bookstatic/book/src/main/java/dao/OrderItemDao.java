@@ -16,7 +16,7 @@ public interface OrderItemDao {
 
     /**
      * 根据orderId查找OrderItem
-     * @param OrderId
+     * @param orderId
      * @return
      */
     List<OrderItem> queryOrderItemByOrderId(String orderId);
