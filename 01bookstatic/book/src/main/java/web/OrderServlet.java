@@ -27,7 +27,7 @@ public class OrderServlet extends BaseServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void createOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void ajaxCreateOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //获取请求参数
         Cart cart = (Cart) req.getSession().getAttribute("cart");
         User user = (User) req.getSession().getAttribute("user");
@@ -38,10 +38,21 @@ public class OrderServlet extends BaseServlet {
         }
         Integer userid = user.getId();
 //        调用service
-        String orderId = orderService.createOrder(cart, userid);
-        req.getSession().setAttribute("orderId",orderId);
+        String orderId = null;
+        try {
+            orderId = orderService.createOrder(cart, userid);
+            req.getSession().setAttribute("orderId",orderId);
 //        请求转发
-        resp.sendRedirect(req.getContextPath()+"/pages/cart/checkout.jsp");
+            resp.sendRedirect(req.getContextPath()+"/pages/cart/checkout.jsp");
+        }catch (Exception e ){
+            e.printStackTrace();
+            Map<String,Object> resultMap = new HashMap<>();
+            resultMap.put("msg","所选商品超出库存，请修改后重新提交");
+
+            Gson gson = new Gson();
+            String json = gson.toJson(resultMap);
+            resp.getWriter().write(json);
+        }
     }
 
     /**

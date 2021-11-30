@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderItemDao orderItemDao = new OrderItemDaoImpl();
     private BookDao bookDao = new BookDaoImpl();
     @Override
-    public String createOrder(Cart cart, Integer userid) {
+    public String createOrder(Cart cart, Integer userid) throws RuntimeException{
         //订单号唯一
         String orderId = System.currentTimeMillis()+""+userid;
         orderDao.saveOrder(new Order(orderId,new Date(),cart.getTotalPrice(),0,userid));
@@ -30,8 +30,12 @@ public class OrderServiceImpl implements OrderService {
             orderItemDao.saveOrderItem(orderItem);
             //更新库存和销量
             Book book = bookDao.queryBookById(cartItem.getId());
-            book.setSales(book.getSales()+cartItem.getCount());
-            book.setStock(book.getStock()-cartItem.getCount());
+            if (book.getStock()>cartItem.getCount()){
+                book.setSales(book.getSales()+cartItem.getCount());
+                book.setStock(book.getStock()-cartItem.getCount());
+            } else {
+                throw new RuntimeException("out of stock!");
+            }
             bookDao.updateBook(book);
         }
         //清空购物车

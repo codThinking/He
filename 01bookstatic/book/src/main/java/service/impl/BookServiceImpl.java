@@ -74,7 +74,11 @@ public class BookServiceImpl implements BookService {
         page.setPageNo(pageNo);
 
         // 求当前页数据的开始索引
-        int begin = (page.getPageNo() - 1) * pageSize;
+        int begin = 0;
+        if (page.getPageNo() > 0){
+            begin = (page.getPageNo() - 1) * pageSize;
+        }
+
         // 求当前页数据
         List<Book> items = bookDao.queryForPageItemsByPrice(begin,pageSize,min,max);
         // 设置当前页数据

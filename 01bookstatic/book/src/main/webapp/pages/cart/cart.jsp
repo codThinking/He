@@ -20,6 +20,13 @@
 			$("#clearCart").click(function () {
 				return confirm("你确定要清空购物车吗?");
 			})
+			//给结账绑定单击事件
+			$("#createOrder").click(function (){
+				$.getJSON("http://localhost:8080/01bookstatic/manager/orderServlet","action=ajaxCreateOrder",function (data){
+					alert(data.msg);
+				})
+			})
+
 			// 给输入框绑定 onchange内容发生改变事件
 			$(".updateCount").change(function () {
 				// 获取商品名称
@@ -30,7 +37,7 @@
 				if ( confirm("你确定要将【" + name + "】商品修改数量为：" + count + " 吗?") ) {
 					//发起请求给服务器保存修改
 					$.getJSON("http://localhost:8080/01bookstatic/cartServlet","action=ajaxUpdateCount&id="+id+"&count="+count,function (data){
-						$("#errorMsg").text(data.msg);
+						alert(data.msg);
 					});
 				} else {
 					// defaultValue属性是表单项Dom对象的属性。它表示默认的value属性值。
@@ -51,8 +58,6 @@
 
 
 	<div id="main">
-		<b></b>
-		<span class="errorMsg" style="text-align: center"  id="errorMsg"></span>
 		<table>
 			<tr>
 				<td>商品名称</td>
@@ -89,7 +94,7 @@
 				<span class="cart_span">购物车中共有<span class="b_count">${sessionScope.cart.totalCount}</span>件商品</span>
 				<span class="cart_span">总金额<span class="b_price">${sessionScope.cart.totalPrice}</span>元</span>
 				<span class="cart_span"><a id="clearCart" href="cartServlet?action=clear">清空购物车</a></span>
-				<span class="cart_span"><a href="manager/orderServlet?action=createOrder">去结账</a></span>
+				<span class="cart_span"><a id="createOrder" href="manager/orderServlet?action=ajaxCreateOrder">去结账</a></span>
 			</div>
 		</c:if>
 
