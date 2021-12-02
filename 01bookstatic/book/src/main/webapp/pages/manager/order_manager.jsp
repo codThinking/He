@@ -33,7 +33,7 @@
 				<td>详情</td>
 				<td>发货</td>
 			</tr>
-			<c:forEach items="${requestScope.orders}" var="order">
+			<c:forEach items="${requestScope.page.items}" var="order">
 				<tr>
 					<td>
 						<fmt:formatDate value="${order.createTime}" pattern='yyyy-MM-dd'/>
@@ -57,6 +57,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<%@include file="/pages/common/page_nav.jsp"%>
 	</div>
 
 	<%--	静态包含页脚--%>

@@ -5,6 +5,20 @@ import pojo.Order;
 import java.util.List;
 
 public interface OrderDao {
+
+    /**
+     * 查询总记录数
+     * @return
+     */
+    Integer queryForTotalCount(int userid);
+
+    /**
+     * 查询当前页数据
+     * @param begin
+     * @param pageSize
+     * @return
+     */
+    List<Order> queryForItems(int begin, int pageSize,int userid);
     /**
      * 保存订单
      * @param order

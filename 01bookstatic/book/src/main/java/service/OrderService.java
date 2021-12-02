@@ -3,6 +3,7 @@ package service;
 import pojo.Cart;
 import pojo.Order;
 import pojo.OrderItem;
+import pojo.Page;
 
 import java.util.List;
 
@@ -45,4 +46,12 @@ public interface OrderService {
      * @param orderId
      */
     void receiveOrder(String orderId);
+
+    /**
+     * 分页
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page page(int pageNo, int pageSize, int userid);
 }

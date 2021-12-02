@@ -7,6 +7,19 @@ import java.util.List;
 
 public class OrderDaoImpl extends BaseDao implements OrderDao {
     @Override
+    public Integer queryForTotalCount(int userid) {
+        String sql = "select count(*) from t_order where user_id= ?";
+        Number count = (Number) queryForSingleValue(sql,userid);
+        return count.intValue();
+    }
+
+    @Override
+    public List<Order> queryForItems(int begin, int pageSize, int userid) {
+        String sql = "select `order_id` orderId,`create_time` createTime,`price`,`status`,`user_id` userId from t_order where user_id= ? limit ?,?";
+        return queryForList(Order.class,sql,userid,begin,pageSize);
+    }
+
+    @Override
     public void saveOrder(Order order) {
         String sql = "insert into t_order (`order_id`,`create_time`,`price`,`status`,`user_id`)values(?,?,?,?,?)";
         update(sql,order.getOrderId(),order.getCreateTime(),order.getPrice(),order.getStatus(),order.getUserId());

@@ -18,6 +18,23 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao = new OrderDaoImpl();
     private OrderItemDao orderItemDao = new OrderItemDaoImpl();
     private BookDao bookDao = new BookDaoImpl();
+
+    @Override
+    public Page page(int pageNo, int pageSize,int userid) {
+        //总记录数
+        Integer pageTotalCount = orderDao.queryForTotalCount(userid);
+        int begin = (pageNo-1)*pageSize;
+        //当前页数据
+        List<Order> orders = orderDao.queryForItems(begin,pageSize,userid);
+        //总页数
+        Integer pageTotal = pageTotalCount/pageSize;
+        if ( pageTotalCount % pageSize > 0 ){
+            pageTotal += 1;
+        }
+        Page<Order> page = new Page<>(pageNo,pageTotal,pageSize,pageTotalCount,orders);
+        return page;
+    }
+
     @Override
     public String createOrder(Cart cart, Integer userid) throws RuntimeException{
         //订单号唯一

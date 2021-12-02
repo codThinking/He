@@ -1,10 +1,7 @@
 package web;
 
 import com.google.gson.Gson;
-import pojo.Cart;
-import pojo.Order;
-import pojo.OrderItem;
-import pojo.User;
+import pojo.*;
 import service.OrderService;
 import service.impl.OrderServiceImpl;
 import utils.WebUtil;
@@ -137,12 +134,17 @@ public class OrderServlet extends BaseServlet {
     protected void orderManager(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //获取请求参数
         int userid = WebUtil.parseInt(req.getParameter("userid"),0);
+        String pageNo = req.getParameter("pageNo");
+        String pageSize = req.getParameter("pageSize");
 
         //判断是否为管理员，如果是管理员则进入否则，返回（默认1号为管理员其余为用户）
         if(userid == 1){
             //处理请求参数 调用Service
-            List<Order> orders = orderService.showAllOrders();
-            req.setAttribute("orders",orders);
+//            List<Order> orders = orderService.showAllOrders();
+            //            req.setAttribute("orders",orders);
+            Page page = orderService.page(WebUtil.parseInt(pageNo,1),WebUtil.parseInt(pageSize,Page.PAGE_SIZE),userid);
+            page.setUrl("manager/orderServlet?action=orderManager&userid="+userid);
+            req.setAttribute("page",page);
 //        请求转发
             req.getRequestDispatcher("/pages/manager/order_manager.jsp").forward(req,resp);
         }else {
@@ -155,7 +157,26 @@ public class OrderServlet extends BaseServlet {
 //            resp.getWriter().write(json);
             resp.sendRedirect(req.getHeader("Referer"));
         }
+    }
 
-
+    /**
+     * 分页
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//         1、获取请求参数
+        String pageNo = req.getParameter("pageNo");
+        String pageSize = req.getParameter("pageSize");
+        int userid = WebUtil.parseInt(req.getParameter("userid"),0);
+//        2、调用service查询数据
+        Page page = orderService.page(WebUtil.parseInt(pageNo,1),WebUtil.parseInt(pageSize,Page.PAGE_SIZE),userid);
+        page.setUrl("manager/orderServlet?action=page&userid="+userid);
+//        3、保存图书到Request域中
+        req.setAttribute("page",page);
+//        4、请求转发到pages/manager/book_edit.jsp
+        req.getRequestDispatcher("/pages/order/order.jsp").forward(req,resp);
     }
 }

@@ -141,10 +141,12 @@ public class CartServlet extends BaseServlet{
             //提示数据有问题重新改   采用ajax
             Map<String,Object> resultMap = new HashMap<>();
             resultMap.put("msg","超出库存，数据异常！");
+            cart.updateCount(id,1);
 
             Gson gson = new Gson();
             String json = gson.toJson(resultMap);
             resp.getWriter().write(json);
+//            resp.sendRedirect(req.getHeader("Referer"));
 //            req.getSession().setAttribute("msg", new String("超出库存数量异常"));
 //            req.setAttribute("outOfStack","超出库存数量异常");
 //            //因为使用的是重定向

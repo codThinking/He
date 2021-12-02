@@ -31,6 +31,20 @@ public class OrderDaoImplTest {
     }
 
     @Test
+    public void queryForTotalCount(){
+        Integer integer = orderDao.queryForTotalCount(2);
+        System.out.println(integer);
+    }
+
+    @Test
+    public void queryForItems(){
+        List<Order> orders = orderDao.queryForItems(0, 5,2);
+        for (Order order : orders) {
+            System.out.println(order);
+        }
+    }
+
+    @Test
     public void changeOrderStatus() {
         orderDao.changeOrderStatus("001",1);
 //        System.out.println();

@@ -24,6 +24,7 @@
 			$("#createOrder").click(function (){
 				$.getJSON("http://localhost:8080/01bookstatic/manager/orderServlet","action=ajaxCreateOrder",function (data){
 					alert(data.msg);
+					location.href="pages/cart/cart.jsp";
 				})
 			})
 
@@ -38,6 +39,7 @@
 					//发起请求给服务器保存修改
 					$.getJSON("http://localhost:8080/01bookstatic/cartServlet","action=ajaxUpdateCount&id="+id+"&count="+count,function (data){
 						alert(data.msg);
+						location.reload();
 					});
 				} else {
 					// defaultValue属性是表单项Dom对象的属性。它表示默认的value属性值。

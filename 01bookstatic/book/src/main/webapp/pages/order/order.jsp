@@ -29,14 +29,18 @@
 
 		<table>
 			<tr>
+				<td>订单号</td>
 				<td>日期</td>
 				<td>金额</td>
 				<td>状态</td>
 				<td>详情</td>
 				<td>操作</td>
 			</tr>
-			<c:forEach items="${requestScope.orders}" var="order">
+			<c:forEach items="${requestScope.page.items}" var="order">
 				<tr>
+					<td>
+						${order.orderId}
+					</td>
 					<td>
 						<fmt:formatDate value="${order.createTime}" pattern='yyyy-MM-dd'/>
 					</td>
@@ -59,6 +63,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<%@include file="/pages/common/page_nav.jsp"%>
 	</div>
 
 	<%--	静态包含页脚--%>

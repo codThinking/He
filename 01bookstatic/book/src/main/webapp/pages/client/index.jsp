@@ -37,7 +37,7 @@
 <%--			如果已经登录显示用户信息--%>
 				<c:if test="${not empty sessionScope.user}">
 					<span>欢迎<span class="um_span">${sessionScope.user.username}</span>光临尚硅谷书城</span>
-					<a href="manager/orderServlet?action=showMyOrder&userid=${sessionScope.user.id}">我的订单</a>
+					<a href="manager/orderServlet?action=page&userid=${sessionScope.user.id}">我的订单</a>
 					<a href="user?action=logout">注销</a>&nbsp;&nbsp;
 				</c:if>
 
